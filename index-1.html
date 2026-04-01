@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  Homework 3 — Colour Palette Builder
+  N220: JavaScript Client-Side Scripting
+
+  YOUR NAME:
+  DATE:
+  STUDENT ID:
+
+  FILES IN THIS PROJECT:
+    index.html   ← you are here (DO NOT change any IDs)
+    styles.css   ← add your styles here
+    script.js    ← write ALL your JavaScript here
+
+  INSTRUCTIONS:
+    1. Do NOT rename or remove any of the existing IDs below.
+       Your JavaScript will select elements by these exact IDs.
+    2. Write all JavaScript in script.js — no inline JS here.
+    3. Add your visual styles in styles.css.
+    4. Test every behaviour in the Scenario table before submitting.
+  ============================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colour Palette Builder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <header>
+    <h1>🎨 Colour Palette Builder</h1>
+    <p>Enter a hex colour code to add it to your palette.</p>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================================
+         INPUT SECTION
+         Your JavaScript reads from #hex-input and listens
+         for clicks on #add-btn.
+         ===================================================== -->
+    <section id="input-section">
+
+      <label for="hex-input">Hex colour code:</label>
+
+      <!--
+        INPUT FIELD
+        id="hex-input" — your JS reads .value from this element.
+        Also attach your keydown listener here to detect Enter key.
+        The placeholder shows an example of a valid hex code.
+      -->
+      <input
+        id="hex-input"
+        type="text"
+        placeholder="#FF5733"
+        maxlength="7"
+      />
+
+      <!--
+        ADD BUTTON
+        id="add-btn" — attach your click event listener to this.
+      -->
+      <button id="add-btn">Add to Palette</button>
+
+      <!--
+        ERROR MESSAGE PARAGRAPH
+        id="error-msg" — display validation errors here.
+        Hidden by default in styles.css.
+        Your JS sets .textContent and shows/hides it.
+      -->
+      <p id="error-msg"></p>
+
+    </section>
+
+
+    <!-- =====================================================
+         PALETTE GRID
+         Your JavaScript appends new swatch <div> elements
+         inside this container using createElement + appendChild.
+         ===================================================== -->
+    <section id="palette-section">
+
+      <h2>
+        My Palette
+        <!--
+          LIVE COUNTER
+          id="swatch-count" — update this every time a swatch
+          is added or removed. Use querySelectorAll to count.
+        -->
+        (<span id="swatch-count">0</span> colours)
+      </h2>
+
+      <!--
+        GRID CONTAINER
+        id="palette-grid" — append all swatch divs here.
+        Starts empty; JavaScript fills it dynamically.
+      -->
+      <div id="palette-grid">
+        <!-- Swatches are inserted here by JavaScript -->
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+  <footer>
+    <p>N220 — Homework 3 | DOM Events &amp; Manipulation</p>
+  </footer>
+
+
+  <!--
+    SCRIPT TAG — always at the BOTTOM of <body>.
+    This guarantees every element above exists in the DOM
+    before your JavaScript tries to find them.
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+/*
+  ============================================================
+  styles.css — Colour Palette Builder
+  N220: Homework 3
+
+  WHAT'S ALREADY DONE FOR YOU:
+    - Page layout (header, main, footer)
+    - Input + button base styles
+    - Error message (hidden by default)
+    - Swatch card base shape
+    - Hover lift animation
+
+  WHAT YOU MUST ADD (marked with TODO):
+    - .swatch.selected  →  visual state when a swatch is clicked
+    - .delete-btn       →  style and position the × button
+    - Any extra personalisation you like!
+  ============================================================
+*/
+
+
+/* ============================================================
+   GLOBAL RESET
+   box-sizing: border-box means padding is included in the
+   element's total size — much easier to work with.
+   ============================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, sans-serif;
+}
+
+
+/* ============================================================
+   PAGE BACKGROUND & BASE FONT
+   ============================================================ */
+body {
+  background-color: #f4f4f4;
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;  /* pushes footer to the bottom */
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+  background-color: #1b3a6b;
+  color: white;
+  padding: 1.5rem 2rem;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+header p {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;  /* centres the content */
+}
+
+
+/* ============================================================
+   INPUT SECTION
+   ============================================================ */
+#input-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+#input-section label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Hex input field */
+#hex-input {
+  padding: 0.5rem 0.8rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: monospace;
+  width: 130px;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s;
+}
+
+#hex-input:focus {
+  outline: none;
+  border-color: #1b3a6b;
+}
+
+/* Add button */
+#add-btn {
+  padding: 0.5rem 1.2rem;
+  background-color: #1b3a6b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#add-btn:hover {
+  background-color: #2e5ba8;
+}
+
+/* Error message — hidden by default.
+   JavaScript sets .textContent and removes the 'hidden' class,
+   OR you can control visibility with display in JS directly. */
+#error-msg {
+  width: 100%;          /* forces it to its own line */
+  color: #c0392b;
+  font-size: 0.85rem;
+  min-height: 1.2em;   /* reserves space so the layout doesn't jump */
+}
+
+
+/* ============================================================
+   PALETTE SECTION
+   ============================================================ */
+#palette-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#palette-section h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+#swatch-count {
+  font-weight: 700;
+  color: #1b3a6b;
+}
+
+
+/* ============================================================
+   PALETTE GRID — flex container for swatch cards
+   ============================================================ */
+#palette-grid {
+  display: flex;
+  flex-wrap: wrap;   /* cards wrap onto the next row when full */
+  gap: 1rem;
+}
+
+
+/* ============================================================
+   SWATCH CARD — base styles
+   JavaScript creates these divs with class="swatch"
+   and sets their background-color via the style property.
+   ============================================================ */
+.swatch {
+  width: 120px;
+  height: 100px;
+  border-radius: 10px;
+
+  /* Stack the colour label and delete button vertically */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  gap: 0.3rem;
+
+  /* position: relative lets us absolutely position the delete button */
+  position: relative;
+
+  cursor: pointer;
+  user-select: none;  /* prevents text selection on double-click */
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+  /* Smooth animation when hover/selected classes are added */
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Lift effect on hover */
+.swatch:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* The hex code label inside the swatch */
+.swatch .swatch-label {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  font-family: monospace;
+  letter-spacing: 0.04em;
+}
+
+
+/* ============================================================
+   TODO 1 — SELECTED STATE
+   Add styles here for .swatch.selected
+   This class is toggled by JavaScript when the swatch is clicked.
+
+   IDEAS:
+     - A thick coloured border
+     - A checkmark in the corner
+     - A scaled-up size
+     - A ring/glow effect using box-shadow
+
+   Example starter (customise it!):
+   ============================================================ */
+.swatch.selected {
+  /* TODO: add your selected styles here */
+  /* Example:
+  box-shadow: 0 0 0 4px #1b3a6b, 0 4px 12px rgba(0,0,0,0.25);
+  transform: translateY(-5px) scale(1.04);
+  */
+}
+
+
+/* ============================================================
+   TODO 2 — DELETE BUTTON
+   Style the × button that appears on each swatch.
+   It is created by JavaScript with class="delete-btn".
+
+   TIPS:
+     - Use position: absolute to float it in a corner of the swatch
+     - The parent .swatch already has position: relative
+     - Hide it by default, show it on .swatch:hover
+
+   Example starter (customise it!):
+   ============================================================ */
+.delete-btn {
+  /* TODO: add your delete button styles here */
+
+  /* Example starter — uncomment and modify:
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  */
+}
+
+/* Show the button only when the parent swatch is hovered */
+.swatch:hover .delete-btn {
+  /* TODO: set opacity: 1 once you style the button above */
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #888;
+  border-top: 1px solid #ddd;
+}
